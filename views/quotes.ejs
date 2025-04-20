@@ -32,6 +32,7 @@
             <p id="authorName"></p>
             <p id="dob"></p>
             <p id="dod"></p>
+            <p id="bio"></p>
         </div>
 
         
@@ -54,9 +55,9 @@ async function displayAuthorInfo() {
     let url = "/api/authors/" + authorId;
     let response = await fetch(url);
     let data = await response.json();
-
+    console.log(data);
     const dob = new Date(data[0].dob);
-
+    const bio = data[0].biography;
 document.querySelector('#dob').textContent = "Born: " + dob.toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
@@ -71,9 +72,11 @@ if (data[0].dod) {
         day: 'numeric'
     });
 } else {
-    document.querySelector('#dod').textContent = ""; // or hide the element entirely
+    document.querySelector('#dod').textContent = ""; //Hide if dod is null
 }
 
+
+document.querySelector('#bio').textContent= bio;
 
 
         let img = document.querySelector('#authorPic');
